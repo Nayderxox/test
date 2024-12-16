@@ -1,2 +1,56 @@
-print("Hello World")
+import pygame
+import sys
+
+# Initialize Pygame
+pygame.init()
+
+# Set up the display
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Move the Cube")
+
+# Define the cube's attributes
+cube_size = 50
+cube_color = (0, 255, 0)  # Green
+cube_x = screen_width // 2 - cube_size // 2  # Starting position (center)
+cube_y = screen_height // 2 - cube_size // 2
+
+# Define the cube's speed
+speed = 5
+
+# Main game loop
+running = True
+while running:
+    # Handle events (like closing the window)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    # Get the keys that are being pressed
+    keys = pygame.key.get_pressed()
+
+    # Update the cube's position based on the hjkl keys
+    if keys[pygame.K_h]:  # Move left (H)
+        cube_x -= speed
+    if keys[pygame.K_l]:  # Move right (L)
+        cube_x += speed
+    if keys[pygame.K_k]:  # Move up (K)
+        cube_y -= speed
+    if keys[pygame.K_j]:  # Move down (J)
+        cube_y += speed
+
+    # Fill the screen with a color (background)
+    screen.fill((0, 0, 0))  # Black background
+
+    # Draw the cube on the screen
+    pygame.draw.rect(screen, cube_color, (cube_x, cube_y, cube_size, cube_size))
+
+    # Update the display
+    pygame.display.update()
+
+    # Set the frames per second (FPS)
+    pygame.time.Clock().tick(60)  # 60 FPS
+
 
